@@ -1,0 +1,79 @@
+{
+    "user":[
+        {
+            "id": 1,
+            "name": "Javier",
+            "DNI": 43829104,
+            "username": "Lucho",
+            "email": "javier246@gmail.com",
+            "password": "srfg342/"
+        },
+        {
+            "id": 2,
+            "name": "Ana",
+            "DNI": 51237890,
+            "username": "anita21",
+            "email": "ana_21@hotmail.com",
+            "password": "gfdg152/"
+        },
+        {
+            "id": 3,
+            "name": "Carlos",
+            "DNI": 71098237,
+            "username": "carlitox",
+            "email": "carlos55@gmail.com",
+            "password": "dsrge271/"
+        }
+    ],
+    "business":[
+        {
+            "id": 1,
+            "name": "Win",
+            "RUC": 20101679811,
+            "email": "wincorp@gmail.com",
+            "password": "D_34hw&N"
+        },
+        {
+            "id": 2,
+            "name": "GreenTech",
+            "RUC": 20501876692,
+            "email": "greentech@outlook.com",
+            "password": "sGk9$@jL"
+        },
+        {
+            "id": 3,
+            "name": "Fashion Haven",
+            "RUC": 30309640157,
+            "email": "info@fashionhaven.com",
+            "password": "7VvEgNp#"
+        }
+    ],
+    "procedure":[
+        {
+            "id":1,
+            "idUser":1,
+            "idBusiness":1,
+            "name": "Solicitud de Servicio",
+            "description": "Se pidio servicio de internet",
+            "state":"En Proceso"
+        },
+        {
+            "id":2,
+            "idUser":2,
+            "idBusiness":2,
+            "name": "Solicitud de Afiliación",
+            "description": "Se pidio una donación menusal",
+            "state":"En Proceso"
+        },
+        {
+            "id":3,
+            "idUser":3,
+            "idBusiness":3,
+            "name": "Compra a por mayor",
+            "description": "Se pidio una compra de varios objetos",
+            "state":"En Proceso"
+        }
+    ]
+
+    
+}
