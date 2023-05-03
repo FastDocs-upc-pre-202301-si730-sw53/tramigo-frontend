@@ -11,7 +11,7 @@
                     <label>Password</label>
                     <InputText id="password" type="password" class="w-full" />
                 </div>
-                <Button label="Login" icon="pi pi-user" class="w-10rem"></Button>
+                <Button label="Login" icon="pi pi-user" class="w-10rem" @click="profile()"></Button>
             </div>
             <div class="w-full md:w-2">
                 <Divider layout="vertical" class="hidden md:flex"><b>OR</b></Divider>
@@ -24,5 +24,12 @@
     </div>
 </template>
 
-<script setup>
+<script>
+export default{
+    methods:{
+        profile:function (){
+            this.$router.push('/profile');
+        }
+    },
+}
 </script>

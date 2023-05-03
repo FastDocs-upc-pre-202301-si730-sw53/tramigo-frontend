@@ -1,4 +1,6 @@
-<template><br>
+<template>
+<toolbar2 />
+<br>
 <div class="medios-de-pago">
   <div class="medio-de-pago">
     <i class="fab fa-cc-visa"></i>
@@ -26,8 +28,8 @@
 </template>
 
 <script setup>
+import toolbar2 from '../components/toolbar2.component.vue'
 import { ref } from "vue";
-
 const selectedPayment = ref();
 const payments = ref([
     { name: 'Visa', code: 'NY' },
