@@ -22,6 +22,11 @@ const router = createRouter({
       component: () => import('../components/login.component.vue') //lazy loading
     },
     {
+      path: '/procedure',
+      name: 'procedure',
+      component: () => import('../views/procedure-view.vue') //lazy loading
+    },
+    {
       path: '/register',
       name: 'register',
       component: () => import('../components/register.component.vue') //lazy loading
