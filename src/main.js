@@ -199,7 +199,7 @@ app.component('SplitButton', SplitButton);
 app.component('Splitter', Splitter);
 app.component('SplitterPanel', SplitterPanel);
 app.component('Steps', Steps);
-app.component('TabMenu', TabMenu);
+app.component('pv-tab-menu', TabMenu);
 app.component('TabView', TabView);
 app.component('TabPanel', TabPanel);
 app.component('Tag', Tag);

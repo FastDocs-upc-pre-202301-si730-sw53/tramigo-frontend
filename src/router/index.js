@@ -22,6 +22,11 @@ const router = createRouter({
       component: () => import('../components/login.component.vue') //lazy loading
     },
     {
+      path: '/register',
+      name: 'register',
+      component: () => import('../components/register.component.vue') //lazy loading
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'notFound',
       component: () => import ('../views/not-found-view.vue') //lazy loading

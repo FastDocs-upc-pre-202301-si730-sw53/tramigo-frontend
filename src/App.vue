@@ -1,20 +1,19 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import { useRoute } from 'vue-router'
+import ToolbarComponent from './components/toolbar.component.vue';
+
+const route = useRoute()
+console.log(route.fullPath)
+
+const loginReceived2 = () => {
+  return route.fullPath !== "/home" && route.fullPath !== "/login" && route.fullPath !== "/register";
+}
 
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <RouterLink to="/login">Login</RouterLink>
-        <RouterLink to="/profile">Profile</RouterLink>
-      </nav>
-    </div>
-  </header>
-
+  <ToolbarComponent v-if="loginReceived2()"></ToolbarComponent>
   <RouterView />
 </template>
 

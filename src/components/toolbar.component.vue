@@ -1,15 +1,14 @@
 <template>
-    <p class="font-bold text-4xl">{{ $t("header.title") }}</p>
-    <pv-input-text :placeholder="$t('header.menu.home')"></pv-input-text>
+    <p class="font-bold text-4xl">{{title}}</p>
     <pv-tab-menu :model="items" />
 </template>
 
 <script setup>
 import {ref} from "vue";
-
+const title='tramigo'
 const items = ref([
     {
-        label: "$t('header.menu.home')",
+        label: 'home',
         icon: 'pi pi-fw pi-home',
         to: '/'
     },
