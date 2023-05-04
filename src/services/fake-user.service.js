@@ -31,6 +31,10 @@ export class FakeUsersService {
         return (this.users)
     }
 
+    getUser(id) {
+        return this.users.find(user => user.id === id)
+    }
+
     createUser(body) {
         this.users.push(body)
         console.log("Usuario Creado")
