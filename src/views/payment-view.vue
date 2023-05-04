@@ -1,5 +1,4 @@
 <template>
-<toolbar2 />
 <br>
 <div class="medios-de-pago">
   <div class="medio-de-pago">
@@ -28,7 +27,6 @@
 </template>
 
 <script setup>
-import toolbar2 from '../components/toolbar2.component.vue'
 import { ref } from "vue";
 const selectedPayment = ref();
 const payments = ref([

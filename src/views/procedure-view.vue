@@ -1,5 +1,4 @@
 <template>
-    <toolbar2 />
     <div class="container">
         <h1>Mis Tramites</h1>
         <Card>
@@ -16,12 +15,8 @@
 </template>
 
 <script>
-    import toolbar2 from '../components/toolbar2.component.vue'
   export default{
     name: 'ProcedureComponent',
-    components:{
-        toolbar2
-    },
     data() {
         return {
             value: ''

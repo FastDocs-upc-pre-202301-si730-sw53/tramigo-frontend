@@ -1,5 +1,5 @@
 <template>
-    <toolbar2 />
+    
     <div class="container">
         <Card>
         <template #title> Perfil </template>
@@ -40,12 +40,8 @@
 </template>
 
 <script>
-    import toolbar2 from '../components/toolbar2.component.vue'
   export default{
     name: 'ProfileComponent',
-    components:{
-        toolbar2
-    },
     data() {
         return {
             value: ''

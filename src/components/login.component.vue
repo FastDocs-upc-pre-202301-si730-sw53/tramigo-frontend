@@ -6,16 +6,14 @@
         <div class="flex flex-column md:flex-row">
             <div class="w-full md:w-5 flex flex-column align-items-center justify-content-center gap-3 py-5">
                 <div class="flex align-items-center gap-2">
-                    <label>Usuario:</label>
-                    <InputText id="username" type="text" class="w-full" />
+                    <label for="username">Usuario:</label>
+                    <InputText id="username" type="text" class="w-full" v-model="username" />
                 </div>
                 <div class="flex align-items-center gap-2">
-                    <label>Contraseña:</label>
-                    <InputText id="password" type="password" class="w-full" />
+                    <label for="password">Contraseña:</label>
+                    <InputText id="password" type="password" class="w-full" v-model="password" />
                 </div>
-                <RouterLink to="/profile">
-                    <Button label="Login" icon="pi pi-user" class="w-10rem"></Button>
-                </RouterLink>
+                <Button label="Login" icon="pi pi-user" class="w-10rem" @click="login"></Button>
             </div>
             <div class="w-full md:w-2">
                 <Divider layout="vertical" class="hidden md:flex"><b>OR</b></Divider>
@@ -34,10 +32,35 @@
 </template>
 
 <script>
-export default{
-    methods:{
-        profile:function (){
+import { FakeUsersService } from '@/services/fake-user.service'
+
+export default {
+    data() {
+        return {
+            username: '',
+            password: '',
+            fakeUserService: new FakeUsersService()
+        }
+    },
+    methods: {
+        profile: function () {
             this.$router.push('/profile');
+        },
+        login: function () {
+            let isLoggedIn = false;
+            let numID = 0;
+            console.log(this.fakeUserService.getUsers())
+            this.fakeUserService.getUsers().map(u => {
+                if (u.username === username.value && u.password === password.value) {
+                    isLoggedIn = true
+                    numID = u.id
+                }
+            })
+
+            if (isLoggedIn) {
+                this.fakeUserService.saveUserId(numID)
+                this.$router.push('/profile');
+            } 
         }
     },
 }

@@ -1,49 +1,100 @@
+
 <template>
-    <p class="font-bold text-4xl">{{title}}</p>
-    <pv-tab-menu :model="items" />
+    <div class="card relative z-2">
+        <Menubar :model="items">
+            <template #start>
+                <img alt="logo" src="../assets/img/logo-tramigo.png" height="40" class="mr-2" />
+            </template>
+            <template #end>
+                <InputText placeholder="Search" type="text" />
+            </template>
+        </Menubar>
+    </div>
 </template>
 
 <script setup>
-import {ref} from "vue";
-const title='tramigo'
+import { ref } from "vue";
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 const items = ref([
     {
-        label: 'home',
+        label: t('menu.home'),
         icon: 'pi pi-fw pi-home',
-        to: '/'
+        items: [
+            {
+                label: t('menu.profile'),
+                icon: 'pi pi-fw pi-user',
+                to: '/profile'
+            },
+            {
+                label: t('menu.profileEdit'),
+                icon: 'pi pi-fw pi-user',
+                to: '/profile/edit'
+            }
+        ]
     },
     {
-        label: 'User',
-        icon: 'pi pi-fw pi-user',
-        to: '/users'
+        label: t('menu.procedure'),
+        icon: 'pi pi-fw pi-briefcase',
+        items: [
+            {
+                label: t('menu.procedureW'),
+                icon: 'pi pi-fw pi-briefcase',
+                to: '/procedure'
+            },
+            {
+                label: 'Editar Tramites',
+                icon: 'pi pi-fw pi-pencil',
+                items: [
+                    {
+                        label: 'Crear Nuevo Tramite',
+                        icon: 'pi pi-fw pi-plus',
+                        to: '/procedure/new'
+                    },
+                    {
+                        label: 'Eliminar Tramites',
+                        icon: 'pi pi-fw pi-minus',
+                        to: '/procedure/delete'
+                    }
+                ]
+            },
+            {
+                label: 'Tramites Archivados',
+                icon: 'pi pi-fw pi-folder',
+                items: [
+                    {
+                        label: 'Borrar',
+                        icon: 'pi pi-fw pi-times',
+                        to: '/procedure/archived/delete'
+                    }
+                ]
+            }
+        ]
     },
     {
-
-        label: 'Posts',
-        icon: 'pi pi-fw pi-table',
-        to: '/posts'
+        label: t('menu.payment'),
+        icon: 'pi pi-fw pi-credit-card',
+        to: '/payment'
     },
     {
-        label: 'Documentation',
-        icon: 'pi pi-fw pi-file',
-        to: '/documentation'
+        label: t('menu.search'),
+        icon: 'pi pi-fw pi-search',
+        to: '/search'
     },
     {
-        label: 'Settings',
-        icon: 'pi pi-fw pi-cog',
-        to: '/settings'
+        label: t('menu.exit'),
+        icon: 'pi pi-fw pi-power-off',
+        to: '/login'
     }
 ]);
-
 </script>
 
 <script>
 export default {
-    name: "ToolbarComponent"
+    name: "ToolbarComponent",
 }
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
