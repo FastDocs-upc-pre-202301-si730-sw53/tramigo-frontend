@@ -27,12 +27,19 @@ export class FakeUsersService {
         }
     ]
 
-    getUsers(){
+    getUsers() {
         return (this.users)
     }
 
     getUser(id) {
-        return this.users.find(user => user.id === id)
+        console.log(id);
+        return this.users.find(user => user.id == id);
+    }
+
+
+    getLoggedUser() {
+        console.log(this.idLogin)
+        return this.users.find(user => user.id === this.idLogin)
     }
 
     createUser(body) {
@@ -40,9 +47,11 @@ export class FakeUsersService {
         console.log("Usuario Creado")
     }
 
-    saveUserId(num){
-        this.idLogin=num;
-        console.log('Logged In',)
+    saveUserId(num) {
+        this.idLogin = num;
+        console.log(num)
+        console.log(this.idLogin)
+        console.log('Logged In')
     }
 
 }

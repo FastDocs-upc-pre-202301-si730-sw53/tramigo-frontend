@@ -59,7 +59,7 @@ export default {
 
             if (isLoggedIn) {
                 this.fakeUserService.saveUserId(numID)
-                this.$router.push('/profile');
+                this.$router.push(`/profile/${numID}`);
             } 
         }
     },
