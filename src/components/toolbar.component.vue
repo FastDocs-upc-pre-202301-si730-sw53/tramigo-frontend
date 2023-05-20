@@ -1,12 +1,12 @@
 
 <template>
     <div class="card relative z-2">
-        <Menubar :model="items">
+        <Menubar :model="items" class="custom-menubar">
             <template #start>
                 <img alt="logo" src="../assets/img/logo-tramigo.png" height="40" class="mr-2" />
             </template>
             <template #end>
-                <InputText placeholder="Search" type="text" />
+                <InputText placeholder="Search" type="text" class="container_search"/>
             </template>
         </Menubar>
     </div>
@@ -97,4 +97,17 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@media only screen and (max-width: 1090px) {
+    .container_search {
+        width: 150px;
+    }
+
+} 
+
+@media only screen and (max-width: 400px) {
+    .container_search {
+        width: 100px;
+    }
+} 
+</style>
