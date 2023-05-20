@@ -1,10 +1,10 @@
 
 <template>
     <div class="card flex flex-column align-items-center">
-        <img class="mx-auto" src="../assets/img/logo-tramigo.png" alt="logo">
+        <img src="../assets/img/logo-tramigo.png" alt="logo">
         <p class="text-3xl font-medium text-900">Bienvenido a tramigo</p>
         <div class="flex flex-column md:flex-row">
-            <div class="w-full md:w-5 flex flex-column align-items-center justify-content-center gap-3 py-5">
+            <div class="w-full md:w-5 flex flex-column align-items-left justify-content-center gap-3 py-5">
                 <div class="flex align-items-center gap-2">
                     <label for="username">Usuario:</label>
                     <InputText id="username" type="text" class="w-full" v-model="username" />
@@ -13,7 +13,9 @@
                     <label for="password">Contraseña:</label>
                     <InputText id="password" type="password" class="w-full" v-model="password" />
                 </div>
-                <Button label="Login" icon="pi pi-user" class="w-10rem" @click="login"></Button>
+                <div class="bt">
+                    <Button label="Login" icon="pi pi-user" class="w-10rem" @click="login"></Button>
+                </div>
             </div>
             <div class="w-full md:w-2">
                 <Divider layout="vertical" class="hidden md:flex"><b>OR</b></Divider>
@@ -65,3 +67,10 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+    .bt {
+        display: flex;
+        justify-content: center;
+    }
+</style>
