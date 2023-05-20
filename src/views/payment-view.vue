@@ -37,7 +37,7 @@ const payments = ref([
 ]);
 </script>
 
-<style>
+<style scoped>
 .button {
   margin-left: 10px;
 }
@@ -74,6 +74,46 @@ const payments = ref([
   width: 60%;
 }
 
+@media only screen and (max-width: 770px) {
+  .container-select-button {
+    width: 70%;
+  }
+
+  .button {
+    width: 50%;
+  }
+
+  span {
+    font-size: 22px !important;
+  }
+}
 
 
+@media only screen and (max-width: 510px) {
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .medio-de-pago {
+    width: 90%;
+  }
+
+  span {
+    font-size: 17px !important;
+  }
+
+  .container-select-button {
+    width: 85%;
+  }
+
+  .w-full {
+    margin: 10px;
+  }
+
+  .button {
+    width: 50%;
+  }
+}
 </style>
