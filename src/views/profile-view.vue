@@ -1,10 +1,10 @@
 <template>
     <div class="container">
-        <Card>
+        <Card class="container_card">
             <template #title> Perfil </template>
             <template #content>
-                <p>Foto de perfil: <br><img
-                        src="https://us.123rf.com/450wm/fizkes/fizkes2104/fizkes210400405/167446118-cierra-el-retrato-de-la-pantalla-de-la-cabeza-de-un-joven-cauc%C3%A1sico-sonriente-que-mira-la.jpg?ver=6">
+                <p>Foto de perfil: <br>
+                    <img src="https://us.123rf.com/450wm/fizkes/fizkes2104/fizkes210400405/167446118-cierra-el-retrato-de-la-pantalla-de-la-cabeza-de-un-joven-cauc%C3%A1sico-sonriente-que-mira-la.jpg?ver=6">
                 </p>
                 <div>
                     <label for="name">Name</label>
@@ -29,9 +29,11 @@
                 </div>
             </template>
             <template #footer>
-                <Button label="Editar" icon="pi pi-user-edit" severity="success" />
-                <Button label="Cambiar Contraseña" icon="pi pi-lock" severity="success" />
-                <Button label="Borrar Cuenta" icon="pi pi-delete-left" severity="success" />
+                <div class="container_footer">
+                    <Button label="Editar" icon="pi pi-user-edit" severity="success" />
+                    <Button label="Cambiar Contraseña" icon="pi pi-lock" severity="success" />
+                    <Button label="Borrar Cuenta" icon="pi pi-delete-left" severity="success" />
+                </div>
             </template>
         </Card>
     </div>
@@ -72,5 +74,31 @@ export default {
 
 .p-inputtext {
     background-color: #A3D9A5;
+}
+
+Button {
+    margin: 5px;
+}
+
+@media only screen and (max-width: 550px) {
+    .container_footer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    Button {
+        width: 75%;
+        margin: 5px;
+    }
+
+    .container_card {
+        width: 95%;
+    }
+
+    img {
+        width: 100%;
+    }
 }
 </style>
