@@ -31,11 +31,37 @@
             <template #footer>
                 <div class="container_footer">
                     <Button label="Editar" icon="pi pi-user-edit" severity="success" />
-                    <Button label="Cambiar Contraseña" icon="pi pi-lock" severity="success" />
+                    <Button label="Cambiar Contraseña" icon="pi pi-lock" severity="success"  @click="onDialog(true)"/>
                     <Button label="Borrar Cuenta" icon="pi pi-delete-left" severity="success" />
                 </div>
             </template>
         </Card>
+    </div>
+
+    <div class="card flex justify-content-center">
+        <Dialog v-model:visible="visible" modal header="Modificar Contraseña" :style="{ width: '45vw' }" :breakpoints="{ '960px': '65vw', '641px': '95vw' }">
+            <div class="container_dialog">
+                <div>
+                    <div>
+                        <label for="password">Contraseña Actual: </label>
+                        <InputText type="text" id="password" v-model="password" class="input"/>
+                    </div>
+                    <div>
+                        <label for="newPassword">Nueva Contraseña: </label>
+                        <InputText type="password" id="newPassword" v-model="newPassword" class="input"/>
+                    </div>
+                    <div>
+                        <label for="confirmPassword">Confirmar Contraseña: </label>
+                        <InputText type="password" id="confirmPassword" v-model="confirmPassword"/>
+                    </div>
+                    <Toast />
+                    <div style="margin-top: 50px; display: flex; justify-content: center;">
+                        <Button icon="pi pi-check" label="Guardar" @click="savePassword()"/>
+                        <Button icon="pi pi-times" label="Cancelar" severity="danger" @click="cancelPassword(false)"/>
+                    </div>
+                </div>
+            </div>
+        </Dialog>
     </div>
 </template>
 
@@ -64,6 +90,43 @@ export default {
 }
 </script>
 
+<script setup>
+import { useToast } from "primevue/usetoast";
+import { ref } from "vue";
+import { useRoute } from 'vue-router';
+
+const visible = ref(false);
+const password = ref("");
+const newPassword = ref("");
+const confirmPassword = ref("");
+
+const api = new FakeUsersService();
+const user = api.getUser(parseInt(useRoute().params.id))
+const toast = useToast();
+
+password.value = user.password;
+
+const onDialog = (show) => {
+    visible.value = show;
+}
+
+const savePassword = () => {
+    if (newPassword.value === confirmPassword.value) {
+        toast.add({ severity: 'success', summary: 'Contraseña actualizada', detail: 'Contraseña actualizada con exito', life: 2000 });
+        setTimeout(() => { visible.value = false; }, 2000);
+    }
+    else {
+        toast.add({ severity: 'warn', summary: 'Contraseña distinta', detail: 'Las contraseñas no coinciden', life: 3000 });
+    }
+}
+
+const cancelPassword = (show) => {
+    newPassword.value = "";
+    confirmPassword.value = "";
+    visible.value = show;
+}
+</script>
+
 <style scoped>
 .container {
     display: flex;
@@ -76,8 +139,22 @@ export default {
     background-color: #A3D9A5;
 }
 
+.input {
+    width: 245px;
+}
+
 Button {
     margin: 5px;
+}
+
+.container_dialog {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_dialog div {
+    margin: 25px;
 }
 
 @media only screen and (max-width: 550px) {
@@ -86,6 +163,10 @@ Button {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+
+    .container_dialog div {
+        text-align: center;
     }
 
     Button {
