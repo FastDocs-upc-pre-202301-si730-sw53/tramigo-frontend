@@ -39,8 +39,8 @@ import { FakeUsersService } from '@/services/fake-user.service'
 export default {
     data() {
         return {
-            username: '',
-            password: '',
+            username: 'javier54',
+            password: 'javier',
             fakeUserService: new FakeUsersService()
         }
     },
@@ -60,6 +60,7 @@ export default {
             })
 
             if (isLoggedIn) {
+                localStorage.setItem('userID', numID)
                 this.fakeUserService.saveUserId(numID)
                 this.$router.push(`/profile/${numID}`);
             } 

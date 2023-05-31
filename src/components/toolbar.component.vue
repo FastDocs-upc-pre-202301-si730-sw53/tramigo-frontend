@@ -18,6 +18,13 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
+if (localStorage.getItem('userID') == null) {
+    console.log('error')
+}
+else console.log('success')
+
+const userID = localStorage.getItem('userID')
+
 const items = ref([
     {
         label: t('menu.home'),
@@ -26,7 +33,7 @@ const items = ref([
             {
                 label: t('menu.profile'),
                 icon: 'pi pi-fw pi-user',
-                to: '/profile'
+                to: `/profile/${userID}`
             },
             {
                 label: t('menu.profileEdit'),
