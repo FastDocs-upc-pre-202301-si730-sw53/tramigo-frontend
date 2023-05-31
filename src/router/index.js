@@ -37,7 +37,7 @@ const router = createRouter({
       component: () => import ('../views/not-found-view.vue') //lazy loading
     },
     {
-      path: '/payment',
+      path: '/payment/:id',
       name: 'payment',
       component: () => import ('../views/payment-view.vue') //lazy loading
     },
