@@ -40,6 +40,11 @@ const router = createRouter({
       path: '/payment',
       name: 'payment',
       component: () => import ('../views/payment-view.vue') //lazy loading
+    },
+    {
+      path: '/profile/edit',
+      name: 'editProfile',
+      component: () => import ('../views/edit-profile-view.vue') //lazy loading
     }
   ]
 })

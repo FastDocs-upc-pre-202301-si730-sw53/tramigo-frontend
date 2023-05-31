@@ -26,6 +26,22 @@ export class FakeUsersService {
             "password": "dsrge271/"
         }
     ]
+    procedure = [
+        {
+            "id": 1,
+            "userId": 1,
+            "name": "Solicitud de Contratación WIN",
+            "description": "Solicitud de contratación de un plan de internet",
+            "status": "Pendiente"
+        },
+        {
+            "id": 2,
+            "userId": 1,
+            "name": "Solicitud de Admisión Universitaria UPC",
+            "description": "Solicitud de admisión a la carrera de Ingeniería de Sistemas en la UPC",
+            "status": "Pendiente"
+        }
+    ]
 
     getUsers() {
         return (this.users)
@@ -54,4 +70,10 @@ export class FakeUsersService {
         console.log('Logged In')
     }
 
+    getAllProcedure(userId){
+        return this.procedure.filter(procedure => procedure.userId === userId);
+    }
+    getProcedure(){
+        return this.procedure;
+    }
 }

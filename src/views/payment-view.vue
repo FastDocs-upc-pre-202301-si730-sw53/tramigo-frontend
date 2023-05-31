@@ -20,24 +20,112 @@
     <div class="container-select-button">
       <div class="card flex justify-content-center">
           <Dropdown v-model="selectedPayment" :options="payments" optionLabel="name" placeholder="Select a Payment" class="w-full md:w-14rem" />
-          <Button label="Submit" class="button"></Button>
+          <Button label="Submit" class="button" @click="onSubmit(true)"></Button>
       </div>
     </div>
+</div>
+
+<div class="card flex justify-content-center">
+        <Dialog v-model:visible="visible" modal header="Realizar Pago" :style="{ width: '45vw' }" :breakpoints="{ '960px': '65vw', '641px': '95vw' }">
+          <div class="card flex align-items-center justify-content-center">
+          <Card style="width: 25em" class="card_dialog">
+            <template #header>
+              <div class="tarjet">
+                <img alt="user header" src="@/assets/img/tarjet.png" width="225"/>
+              </div>
+            </template>
+            <template #title> Pago - {{ paymentTarjet.name }} </template>
+            <template #subtitle> Detalle </template>
+            <template #content>
+              <div class="p-inputgroup flex-1 my-2">
+                <span class="p-inputgroup-addon"> <i class="pi pi-credit-card"></i> </span>
+                <InputText class="input" v-model="value1" type="number" :maxlength="16" placeholder="Numero de tarjeta" />
+              </div>
+              <div class="p-inputgroup flex-1 my-2">
+                <span class="p-inputgroup-addon"> <i class="pi pi-calendar"></i> </span>
+                <Calendar class="input" v-model="date" view="month" dateFormat="mm/yy" placeholder="Fecha"/>
+              </div>
+              <div class="p-inputgroup flex-1 my-2">
+                <span class="p-inputgroup-addon"> <i class="pi pi-credit-card"></i> </span>
+                <InputText class="input" v-model="value2" type="number" :maxlength="4" placeholder="CVV" />
+              </div>
+              <div class="p-inputgroup flex-1 my-2">
+                <span class="p-inputgroup-addon"> <i class="pi pi-user"></i> </span>
+                <InputText class="input" v-model="value3" type="text" placeholder="Nombre" />
+              </div>
+              <div class="p-inputgroup flex-1 my-2">
+                <span class="p-inputgroup-addon"> <i class="pi pi-user"></i> </span>
+                <InputText class="input" v-model="value4" type="text" placeholder="Apellido" />
+              </div>
+              <div class="p-inputgroup flex-1 my-2">
+                <span class="p-inputgroup-addon"> <i class="pi pi-envelope"></i> </span>
+                <InputText class="input" v-model="value5" type="text" placeholder="Email" />
+              </div>
+            </template>
+            <template #footer>
+              <div class="bt">
+                <Toast></Toast>
+                <Button icon="pi pi-check" :label="`Pagar ${paymentTarjet.amount}`" severity="danger" @click="onPayment()"/>
+              </div>
+            </template>
+          </Card>
+          </div>
+        </Dialog>
 </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import { useToast } from "primevue/usetoast";
+
 const selectedPayment = ref();
+
 const payments = ref([
-    { name: 'Visa', code: 'NY' },
-    { name: 'MasterCard', code: 'RM' },
-    { name: 'PayPal', code: 'LDN' },
-    { name: 'American Express', code: 'IST' }
+    { name: 'Visa', code: 'NY', amount: '$/ 550.00' },
+    { name: 'MasterCard', code: 'RM', amount: '$/ 550.00' },
+    { name: 'PayPal', code: 'LDN', amount: '$/ 550.00' },
+    { name: 'American Express', code: 'IST', amount: '$/ 550.00' }
 ]);
+
+const visible = ref(false);
+const paymentTarjet = ref('');
+const date = ref();
+const value1 = ref();
+const value2 = ref();
+const value3 = ref();
+const value4 = ref();
+const value5 = ref();
+const toast = useToast();
+
+const onSubmit = (show) => {
+    paymentTarjet.value = selectedPayment.value;
+    visible.value = show;
+}
+
+const onPayment = () => {
+    toast.add({ severity: 'success', summary: 'Pago realizado', detail: 'Pago realizado con exito', life: 2000 });
+    setTimeout(() => { visible.value = false; }, 2000);
+    clearAll();
+}
+
+const clearAll = () => {
+    date.value = '';
+    value1.value = '';
+    value2.value = '';
+    value3.value = '';
+    value4.value = '';
+    value5.value = '';
+}
 </script>
 
 <style scoped>
+.bt, .tarjet {
+  text-align: center;
+}
+
+Button {
+  width: 75%;
+}
 .button {
   margin-left: 10px;
 }
@@ -94,6 +182,10 @@ const payments = ref([
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .card_dialog {
+    width: 22em !important;
   }
 
   .medio-de-pago {

@@ -25,6 +25,5 @@ export class UsersService {
     delete(id){
         return http.delete('user/' + id)
     }
-
 }
 
