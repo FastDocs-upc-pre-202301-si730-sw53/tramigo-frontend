@@ -10,42 +10,42 @@
                     <label for="username">Nombre de usuario</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="username" v-model="username_" />
+                        <InputText id="username" v-model="username_" :disabled="true" />
                     </span>
                 </div>
                 <div>
                     <label for="name">Nombre</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="name" v-model="name_" />
+                        <InputText id="name" v-model="name_" :disabled="true"/>
                     </span>
                 </div>
                 <div>
                     <label for="lastName">Apellido Paterno</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="lastName" v-model="lastName1_" />
+                        <InputText id="lastName" v-model="lastName1_" :disabled="true"/>
                     </span>
                 </div>
                 <div>
                     <label for="lastName">Apellido Materno</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="lastName" v-model="lastName2_" />
+                        <InputText id="lastName" v-model="lastName2_" :disabled="true"/>
                     </span>
                 </div>
                 <div>
                     <label for="phone">Telefono</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="phone" v-model="phone_" />
+                        <InputText id="phone" v-model="phone_" :disabled="true"/>
                     </span>
                 </div>
                 <div>
                     <label for="email">Correo</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="email" v-model="email_" />
+                        <InputText id="email" v-model="email_" :disabled="true"/>
                     </span>
                 </div>
             </template>

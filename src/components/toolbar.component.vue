@@ -83,7 +83,7 @@ const items = ref([
     {
         label: t('menu.payment'),
         icon: 'pi pi-fw pi-credit-card',
-        to: '/payment'
+        to: `/payment/${userID}`
     },
     {
         label: t('menu.search'),
