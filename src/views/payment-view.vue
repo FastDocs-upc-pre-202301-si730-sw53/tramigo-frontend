@@ -1,7 +1,7 @@
 <template>
 <br>
 <div class="medios-de-pago">
-  <div class="medio-de-pago">
+  <!--<div class="medio-de-pago">
     <i class="fab fa-cc-visa"></i>
     <span>Visa</span>
   </div>
@@ -16,7 +16,8 @@
   <div class="medio-de-pago">
     <i class="fab fa-cc-amex"></i>
     <span>American Express</span>
-  </div><br>
+  </div>-->
+  <br>
     <div class="container-select-button">
       <div class="card flex justify-content-center">
           <Dropdown v-model="selectedPayment" :options="payments" optionLabel="name" placeholder="Select a Payment" class="w-full md:w-14rem" />
@@ -116,6 +117,26 @@ const clearAll = () => {
     value4.value = '';
     value5.value = '';
 }
+</script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<script>
+import { FakeUsersService } from "../services/fake-user.service";
+export default {
+  name: "payment",
+  data() {
+    return {
+      payments_: [],
+      fakeUserService: new FakeUsersService(),
+    }
+},
+
+  beforeMount() {
+    const id = this.$route.params.id;
+    const user = this.fakeUserService.getUser(id);
+    this.payments_ = user.payments;
+},
+
+};
 </script>
 
 <style scoped>

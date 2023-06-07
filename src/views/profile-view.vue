@@ -7,17 +7,38 @@
                     <img src="https://us.123rf.com/450wm/fizkes/fizkes2104/fizkes210400405/167446118-cierra-el-retrato-de-la-pantalla-de-la-cabeza-de-un-joven-cauc%C3%A1sico-sonriente-que-mira-la.jpg?ver=6">
                 </p>
                 <div>
-                    <label for="name">Name</label>
+                    <label for="username">Nombre de usuario</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="name" v-model="username_" />
+                        <InputText id="username" v-model="username_" />
                     </span>
                 </div>
                 <div>
-                    <label for="username">Nombre</label>
+                    <label for="name">Nombre</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="username" v-model="name_" />
+                        <InputText id="name" v-model="name_" />
+                    </span>
+                </div>
+                <div>
+                    <label for="lastName">Apellido Paterno</label>
+                    <br>
+                    <span class="p-float-label">
+                        <InputText id="lastName" v-model="lastName1_" />
+                    </span>
+                </div>
+                <div>
+                    <label for="lastName">Apellido Materno</label>
+                    <br>
+                    <span class="p-float-label">
+                        <InputText id="lastName" v-model="lastName2_" />
+                    </span>
+                </div>
+                <div>
+                    <label for="phone">Telefono</label>
+                    <br>
+                    <span class="p-float-label">
+                        <InputText id="phone" v-model="phone_" />
                     </span>
                 </div>
                 <div>
@@ -75,6 +96,9 @@ export default {
             username_: '',
             name_: '',
             email_: '',
+            lastName1_: '',
+            lastName2_: '',
+            phone_: '',
             fakeUserService: new FakeUsersService(),
         }
     },
@@ -86,6 +110,9 @@ export default {
         this.username_=user.username
         this.name_=user.name
         this.email_=user.email
+        this.lastName1_=user.lastName1_
+        this.lastName2_=user.lastName2_
+        this.phone_=user.phone_
     }
 }
 </script>

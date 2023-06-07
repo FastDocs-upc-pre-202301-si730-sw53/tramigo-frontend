@@ -4,24 +4,53 @@
     </Card>
     <div class="format">
         <div>
-            <label for="username">Username</label>
-            <InputText id="username" v-model="value" aria-describedby="username-help" />
+            <label for="username">Nombre de Usuario</label>
+            <InputText id="username" v-model="username" aria-describedby="username-help" />
         </div>
         <div>
-            <label for="email">Email</label>
-            <InputText id="email" v-model="value" aria-describedby="email-help" />
+            <label for="email">Correo</label>
+            <InputText id="email" v-model="email" aria-describedby="email-help" />
         </div>
         <div>
-            <label for="password">Password</label>
-            <InputText id="password" v-model="value" aria-describedby="password-help" />
+            <label for="phone">Telefono</label>
+            <InputText id="phone" v-model="phone" aria-describedby="phone-help" />
         </div>
-        <Button type="submit" label="Submit" />
+        <Button type="submit" label="Submit" @click="updateUser" />
     </div>
 </template>
 
 <script>
+import { FakeUsersService } from '@/services/fake-user.service'
 export default {
-    name: 'Edit-Profile-Component'
+    name: 'Edit-Profile-Component',
+    data() {
+    return {
+      username: '',
+      email: '',
+      phone: '',
+      fakeUserService: new FakeUsersService()
+    }
+    },
+    methods: {
+    updateUser() {
+      const id = this.$route.params.id
+      console.log(id);
+      this.fakeUserService.putProfile(id, this.username, this.email, this.phone)
+        .then(() => {
+          this.$toast.add({
+            severity: "success",
+            summary: "Success",
+            detail: "Usuario Actualizado",
+            life: 3000
+          });
+          //this.$router.push(`/profile/${id}`);
+        })
+        .catch(error => {
+          console.error(error);
+          // Manejar el error si es necesario
+        });
+    }
+  }
 }
 </script>
 
