@@ -42,9 +42,14 @@ const router = createRouter({
       component: () => import ('../views/payment-view.vue') //lazy loading
     },
     {
-      path: '/profile/edit',
+      path: '/profile/edit/:id',
       name: 'editProfile',
       component: () => import ('../views/edit-profile-view.vue') //lazy loading
+    },
+    {
+      path: '/procedure/filed',
+      name: 'storeProcedure',
+      component: () => import ('../views/filed-procedure-view.vue') //lazy loading
     }
   ]
 })

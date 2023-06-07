@@ -65,6 +65,15 @@ export class FakeUsersService {
             "status": "Pendiente"
         }
     ]
+    storeprocedure = [
+        {
+            "id": 3,
+            "userId": 1,
+            "name": "Solicitud de Renovación de DNI",
+            "description": "Solicitud de renovación de DNI por vencimiento",
+            "status": "Concluido"
+        }
+    ]
 
     getUsers() {
         return (this.users)
@@ -98,5 +107,16 @@ export class FakeUsersService {
     }
     getProcedure(){
         return this.procedure;
+    }
+    getStoreProcedure(){
+        return this.storeprocedure;
+    }
+
+    
+    putProfile(id, username, email, phone) {
+        this.users[id].username = username;
+        this.users[id].email = email;
+        this.users[id].phone = phone;
+        console.log("Usuario Actualizado")
     }
 }

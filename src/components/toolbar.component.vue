@@ -38,7 +38,7 @@ const items = ref([
             {
                 label: t('menu.profileEdit'),
                 icon: 'pi pi-fw pi-user',
-                to: '/profile/edit'
+                to: `/profile/edit/${userID}`
             }
         ]
     },
@@ -74,7 +74,7 @@ const items = ref([
                     {
                         label: 'Borrar',
                         icon: 'pi pi-fw pi-times',
-                        to: '/procedure/archived/delete'
+                        to: '/procedure/filed'
                     }
                 ]
             }
