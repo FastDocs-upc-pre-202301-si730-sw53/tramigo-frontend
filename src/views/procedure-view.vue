@@ -3,10 +3,11 @@
       <template #title> Mis Tramites</template>
     </Card>
     <DataTable :value="Procedure" tableStyle="min-width: 50rem" @row-select="openDialog">
-      <Column selectionMode="single" header="Select"></Column>
-      <Column field="id" header="N."></Column>
+      <Column selectionMode="single" header="Detalle"></Column>
+      <Column field="id" header="N°."></Column>
       <Column field="name" header="Name"></Column>
       <Column field="description" header="Description"></Column>
+      <Column field="date" header="Solicitud"></Column>
       <Column field="status" header="Status"></Column>
     </DataTable>
 
@@ -47,6 +48,11 @@
                 <InputText class="input" type="text" disabled :placeholder="selectedProcedure.username" />
               </div>
             </template>
+            <template #footer>
+            <div class="bt">
+                <Button icon="pi pi-check" label="Realizar pago" severity="danger" @click="onPayment()" />
+            </div>
+          </template>
           </Card>
           </div>
         </Dialog>
@@ -56,7 +62,7 @@
 
 <script>
 import { FakeUsersService } from '@/services/fake-user.service'
-import { getActivePinia } from 'pinia';
+// import { getActivePinia } from 'pinia';
   export default{
     name: 'ProcedureComponent',
     data() {
@@ -67,7 +73,6 @@ import { getActivePinia } from 'pinia';
     },
     beforeMount(){
         this.Procedure = this.fakeUserService.getProcedure()
-        // console.log(this.Procedure)
     }
   }
 </script>
@@ -75,7 +80,9 @@ import { getActivePinia } from 'pinia';
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const visible = ref(false);
 const selectedProcedure = ref(null);
 const api = new FakeUsersService();
@@ -84,10 +91,15 @@ const status = ref(null);
 const openDialog = (event) => {
   const id = event.data.id;
   status.value = event.data.status;
-
+ 
   const user = api.getUser(id);
   selectedProcedure.value = user;
   visible.value = true;
+};
+
+const onPayment = () => {
+  router.push('/payment/1');
+  visible.value = false;
 };
 </script>
 

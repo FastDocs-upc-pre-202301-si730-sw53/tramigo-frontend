@@ -1,5 +1,4 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
 import { useRoute } from 'vue-router'
 import ToolbarComponent from './components/toolbar.component.vue';
 
@@ -14,7 +13,7 @@ const loginReceived2 = () => {
 
 <template>
   <ToolbarComponent v-if="loginReceived2()"></ToolbarComponent>
-  <RouterView />
+  <router-view></router-view>
 </template>
 
 <style scoped>

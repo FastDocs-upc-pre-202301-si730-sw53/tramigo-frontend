@@ -54,12 +54,18 @@
               <span class="p-inputgroup-addon"> <i class="pi pi-envelope"></i> </span>
               <InputText class="input" v-model="value5" type="text" placeholder="Email" />
             </div>
+            <div class="p-inputgroup flex-1 my-2">
+              <span class="p-inputgroup-addon"> <i class="pi pi-list"></i> </span>
+              <InputText class="input" v-model="value6" type="text" placeholder="Tramite N°." />
+              <router-link to="/procedure">
+                <Button class="pi pi-eye" style="width: 45px; height: 45px;"></Button>
+              </router-link>
+            </div>
           </template>
           <template #footer>
             <div class="bt">
               <Toast></Toast>
-              <Button icon="pi pi-check" :label="`Pagar ${paymentTarjet.amount}`" severity="danger"
-                @click="onPayment()" />
+              <Button icon="pi pi-check" :label="`Pagar ${paymentTarjet.amount}`" severity="danger" @click="onPayment()" />
             </div>
           </template>
         </Card>
@@ -68,49 +74,6 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
-import { useToast } from "primevue/usetoast";
-
-const selectedPayment = ref();
-
-const payments = ref([
-  { name: 'Visa', code: 'NY', amount: '$/ 550.00' },
-  { name: 'MasterCard', code: 'RM', amount: '$/ 550.00' },
-  { name: 'PayPal', code: 'LDN', amount: '$/ 550.00' },
-  { name: 'American Express', code: 'IST', amount: '$/ 550.00' }
-]);
-
-const visible = ref(false);
-const paymentTarjet = ref('');
-const date = ref();
-const value1 = ref();
-const value2 = ref();
-const value3 = ref();
-const value4 = ref();
-const value5 = ref();
-const toast = useToast();
-
-const onSubmit = (show) => {
-  paymentTarjet.value = selectedPayment.value;
-  visible.value = show;
-}
-
-const onPayment = () => {
-  toast.add({ severity: 'success', summary: 'Pago realizado', detail: 'Pago realizado con exito', life: 2000 });
-  setTimeout(() => { visible.value = false; }, 2000);
-  clearAll();
-}
-
-const clearAll = () => {
-  date.value = '';
-  value1.value = '';
-  value2.value = '';
-  value3.value = '';
-  value4.value = '';
-  value5.value = '';
-}
-</script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <script>
 import { FakeUsersService } from "../services/fake-user.service";
@@ -146,6 +109,62 @@ export default {
   },
 
 };
+</script>
+
+
+<script setup>
+import { ref } from "vue";
+import { useToast } from "primevue/usetoast";
+
+const selectedPayment = ref();
+
+const payments = ref([
+  { name: 'Visa', code: 'NY', amount: '$/ 550.00' },
+  { name: 'MasterCard', code: 'RM', amount: '$/ 550.00' },
+  { name: 'PayPal', code: 'LDN', amount: '$/ 550.00' },
+  { name: 'American Express', code: 'IST', amount: '$/ 550.00' }
+]);
+
+const visible = ref(false);
+const paymentTarjet = ref('');
+const date = ref();
+const value1 = ref();
+const value2 = ref();
+const value3 = ref();
+const value4 = ref();
+const value5 = ref();
+const value6 = ref();
+const toast = useToast();
+
+const onSubmit = (show) => {
+  paymentTarjet.value = selectedPayment.value;
+  visible.value = show;
+}
+
+const onPayment = () => {
+  if (!checkPayment()) {
+    toast.add({ severity: 'success', summary: 'Pago realizado', detail: 'Pago realizado con exito', life: 2000 });
+    setTimeout(() => { visible.value = false; }, 2000);
+    clearAll();
+  }
+  else {
+    toast.add({ severity: 'error', summary: 'Error', detail: 'Debe completar todos los campos', life: 2000 });
+  }
+}
+
+const clearAll = () => {
+  date.value = "";
+  value1.value = "";
+  value2.value = "";
+  value3.value = "";
+  value4.value = "";
+  value5.value = "";
+  value6.value = "";
+}
+
+const checkPayment = () => {
+  return (date.value === "" || value1.value === "" || value2.value === "" || value3.value === "" || value4.value === "" || value5.value === "" || value6.value === "") ? true : false;
+}
 </script>
 
 <style scoped>

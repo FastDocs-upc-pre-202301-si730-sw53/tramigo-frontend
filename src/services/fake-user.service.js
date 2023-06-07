@@ -55,6 +55,7 @@ export class FakeUsersService {
             "userId": 1,
             "name": "Solicitud de Contratación WIN",
             "description": "Solicitud de contratación de un plan de internet",
+            "date": "2023-06-01",
             "status": "Pendiente"
         },
         {
@@ -62,6 +63,7 @@ export class FakeUsersService {
             "userId": 1,
             "name": "Solicitud de Admisión Universitaria UPC",
             "description": "Solicitud de admisión a la carrera de Ingeniería de Sistemas en la UPC",
+            "date": "2023-06-07",
             "status": "Pendiente"
         }
     ]
