@@ -104,9 +104,9 @@ export default {
     },
     beforeMount(){
         const id = this.$route.params.id
-        console.log(this.fakeUserService.getUser(id))
+        // console.log(this.fakeUserService.getUser(id))
         const user = this.fakeUserService.getUser(id)
-        console.log(user)
+        // console.log(user)
         this.username_=user.username
         this.name_=user.name
         this.email_=user.email

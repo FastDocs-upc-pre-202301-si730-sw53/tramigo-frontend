@@ -1,16 +1,16 @@
 import axios from "axios"
 
 const http = axios.create({
-    baseURL:"http://localhost:3000/"
+    baseURL:"http://localhost:3000"
 })
 
 export class UsersService {
 
-    getAll() {
-        return http.get('user')
+    getAllUser() {
+        return http.get('/user')
     }
 
-    getById(id) {
+    getUserById(id) {
         return http.get('user/'+id)
     }
 
@@ -18,11 +18,11 @@ export class UsersService {
         return http.post('user',body)
     }
 
-    updatePost(id,body){
+    updateUser(id,body){
         return http.patch('user/' + id,body)
     }
 
-    delete(id){
+    deleteUser(id){
         return http.delete('user/' + id)
     }
 }

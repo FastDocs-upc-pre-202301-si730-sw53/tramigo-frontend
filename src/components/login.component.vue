@@ -33,7 +33,7 @@
     </div>
 </template>
 
-<script>
+<!-- <script>
 import { FakeUsersService } from '@/services/fake-user.service'
 
 export default {
@@ -66,6 +66,34 @@ export default {
             } 
         }
     },
+}
+</script> -->
+
+<script setup>
+import { ref } from 'vue';
+import { UsersService } from '../services/users.service';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const API = new UsersService();
+const username = ref();
+const password = ref();
+let isLoggedIn = false;
+let numID = 0;
+
+const login = () => {
+
+    API.getAllUser().then((response) => {
+        const usuario = response.data.find((user) => user.username === username.value && user.password === password.value);
+        if (usuario) {
+            isLoggedIn = true;
+            numID = usuario.id;
+        }
+        if (isLoggedIn) {
+            localStorage.setItem('userID', numID);
+            router.push(`/profile/${numID}`);
+        }
+    })
 }
 </script>
 

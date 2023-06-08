@@ -85,11 +85,11 @@ const items = ref([
         icon: 'pi pi-fw pi-credit-card',
         to: `/payment/${userID}`
     },
-    {
-        label: t('menu.search'),
-        icon: 'pi pi-fw pi-search',
-        to: '/search'
-    },
+    // {
+    //     label: t('menu.search'),
+    //     icon: 'pi pi-fw pi-search',
+    //     to: '/search'
+    // },
     {
         label: t('menu.exit'),
         icon: 'pi pi-fw pi-power-off',
