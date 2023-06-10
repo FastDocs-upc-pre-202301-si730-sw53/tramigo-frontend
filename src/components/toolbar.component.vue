@@ -49,7 +49,7 @@ const items = ref([
             {
                 label: t('menu.procedureW'),
                 icon: 'pi pi-fw pi-briefcase',
-                to: '/procedure'
+                to: `/procedure/${userID}`
             },
             {
                 label: 'Editar Tramites',
@@ -70,13 +70,7 @@ const items = ref([
             {
                 label: 'Tramites Archivados',
                 icon: 'pi pi-fw pi-folder',
-                items: [
-                    {
-                        label: 'Borrar',
-                        icon: 'pi pi-fw pi-times',
-                        to: '/procedure/filed'
-                    }
-                ]
+                to: `/procedure/filed/${userID}`,  
             }
         ]
     },

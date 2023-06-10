@@ -22,7 +22,7 @@ const router = createRouter({
       component: () => import('../components/login.component.vue') //lazy loading
     },
     {
-      path: '/procedure',
+      path: '/procedure/:id',
       name: 'procedure',
       component: () => import('../views/procedure-view.vue') //lazy loading
     },
@@ -47,7 +47,7 @@ const router = createRouter({
       component: () => import ('../views/edit-profile-view.vue') //lazy loading
     },
     {
-      path: '/procedure/filed',
+      path: '/procedure/filed/:id',
       name: 'storeProcedure',
       component: () => import ('../views/filed-procedure-view.vue') //lazy loading
     }

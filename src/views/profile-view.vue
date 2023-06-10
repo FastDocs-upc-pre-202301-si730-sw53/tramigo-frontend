@@ -51,7 +51,7 @@
             </template>
             <template #footer>
                 <div class="container_footer">
-                    <Button label="Editar" icon="pi pi-user-edit" severity="success" />
+                    <Button label="Editar" icon="pi pi-user-edit" severity="success" @click="editProfile()"/>
                     <Button label="Cambiar Contraseña" icon="pi pi-lock" severity="success"  @click="onDialog(true)"/>
                     <Button label="Borrar Cuenta" icon="pi pi-delete-left" severity="success" />
                 </div>
@@ -88,7 +88,7 @@
 
 <script>
 import { FakeUsersService } from '@/services/fake-user.service'
-
+import { useRouter } from "vue-router";
 export default {
     name: 'ProfileComponent',
     data() {
@@ -113,6 +113,11 @@ export default {
         this.lastName1_=user.lastName1_
         this.lastName2_=user.lastName2_
         this.phone_=user.phone_
+    },
+    methods:{
+        editProfile(){
+            this.$router.push('/profile/edit/'+this.$route.params.id)
+        },
     }
 }
 </script>
@@ -121,6 +126,7 @@ export default {
 import { useToast } from "primevue/usetoast";
 import { ref } from "vue";
 import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 
 const visible = ref(false);
 const password = ref("");
@@ -136,6 +142,7 @@ password.value = user.password;
 const onDialog = (show) => {
     visible.value = show;
 }
+
 
 const savePassword = () => {
     if (newPassword.value === confirmPassword.value) {
