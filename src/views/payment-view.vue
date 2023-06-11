@@ -1,7 +1,7 @@
 <template>
   <br>
   <div class="medios-de-pago">
-    <div v-for="payment in payments_" :key="payment.id" class="medio-de-pago">
+    <div v-if= "!payments_.length > 0" v-for="payment in payments_" :key="payment.id" class="medio-de-pago">
       <i :class="getCardIcon(payment.type)"></i>
       <span>{{ payment.cardNumber.slice(-4) }}</span>
       <span>{{ payment.type }}</span>
@@ -76,13 +76,15 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <script>
-import { FakeUsersService } from "../services/fake-user.service";
+//import { FakeUsersService } from "../services/fake-user.service";
+import PaymentsApiService from "../services/payments-api.service";
 export default {
   name: "payment",
   data() {
     return {
       payments_: [],
-      fakeUserService: new FakeUsersService(),
+      //fakeUserService: new FakeUsersService(),
+      //paymentService: new PaymentsApiService(),
     }
   },
   methods: {
@@ -103,10 +105,17 @@ export default {
   },
 
   beforeMount() {
-    const id = this.$route.params.id;
-    const user = this.fakeUserService.getUser(id);
-    this.payments_ = user.payments;
-  },
+  const paymentService = new PaymentsApiService();
+  const id = this.$route.params.id;
+
+  try {
+    this.payments_.push(paymentService.getPaymentById(1));
+    this.payments_.push(paymentService.getPaymentById(2));
+  } catch (error) {
+    console.error("Error loading payments:", error);
+  }
+},
+
 
 };
 </script>
