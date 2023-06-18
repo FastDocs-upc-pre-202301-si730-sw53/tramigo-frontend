@@ -4,7 +4,6 @@
         <p class="text-3xl font-medium text-900">Bienvenido a tramigo</p>
         <div class="flex flex-column md:flex-row">
             <div class="w-full md:w-5 flex flex-column align-items-left justify-content-center gap-3 py-5">
-                <Toast></Toast>
                 <div class="flex align-items-center gap-2">
                     <label for="username">Usuario:</label>
                     <InputText id="username" type="text" class="w-full" v-model="username" />
@@ -13,6 +12,8 @@
                     <label for="password">Contraseña:</label>
                     <InputText id="password" type="password" class="w-full" v-model="password" />
                 </div>
+                <Toast></Toast>
+                <Toast position="bottom-right" group="br" />
                 <div class="bt">
                     <Button label="Login" icon="pi pi-user" class="w-10rem" @click="login"></Button>
                 </div>
@@ -52,14 +53,13 @@ const login = () => {
         API_USER.getAllUser().then((response) => {
             const usuario = response.data.find((user) => user.username === username.value && user.password === password.value);
             if (usuario) {
-                toast.add({ severity: 'success', summary: 'Inicio de sesión exitoso', detail: '¡Bienvenido!', group: 'br', life: 2000 });
-                // toast.add({ severity: 'success', summary: 'Inicio de sesión exitoso', detail: '¡Bienvenido!', group: 'br', life: 2000 });
                 isLoggedIn = true;
                 numID = usuario.id;
             }
             if (isLoggedIn) {
+                toast.add({ severity: 'success', summary: 'Inicio de sesión exitoso', detail: '¡Bienvenido!', group: 'br', life: 2000 });
                 localStorage.setItem('userID', numID);
-                router.push(`/profile/${numID}`);
+                setTimeout(() => { router.push(`/profile/${numID}`); }, 2000);
             }
             else {
                 toast.add({ severity: 'error', summary: 'Error de inicio de sesión', detail: 'Credenciales inválidas', life: 2000 });

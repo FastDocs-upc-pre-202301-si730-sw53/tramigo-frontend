@@ -111,7 +111,7 @@ export default {
         this.email_=user.email
         this.lastName1_=user.lastName1
         this.lastName2_=user.lastName2
-        this.phone_= 922529107
+        this.phone_= 
     },
     methods:{
         editProfile(){
