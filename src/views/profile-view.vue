@@ -10,42 +10,42 @@
                     <label for="username">Nombre de usuario</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="username" v-model="username_" :disabled="true" />
+                        <InputText id="username" v-model="User.username" :disabled="true" />
                     </span>
                 </div>
                 <div>
                     <label for="name">Nombre</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="name" v-model="name_" :disabled="true"/>
+                        <InputText id="name" v-model="User.name" :disabled="true"/>
                     </span>
                 </div>
                 <div>
                     <label for="lastName">Apellido Paterno</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="lastName" v-model="lastName1_" :disabled="true"/>
+                        <InputText id="lastName" v-model="User.lastName1" :disabled="true"/>
                     </span>
                 </div>
                 <div>
                     <label for="lastName">Apellido Materno</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="lastName" v-model="lastName2_" :disabled="true"/>
+                        <InputText id="lastName" v-model="User.lastName2" :disabled="true"/>
                     </span>
                 </div>
                 <div>
                     <label for="phone">Telefono</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="phone" v-model="phone_" :disabled="true"/>
+                        <InputText id="phone" v-model="User.phone" :disabled="true"/>
                     </span>
                 </div>
                 <div>
                     <label for="email">Correo</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="email" v-model="email_" :disabled="true"/>
+                        <InputText id="email" v-model="User.email" :disabled="true"/>
                     </span>
                 </div>
             </template>
@@ -89,30 +89,26 @@
 <script>
 import { FakeUsersService } from '@/services/fake-user.service'
 import { useRouter } from "vue-router";
+import { UserAPI } from '../services/users.service';
 export default {
     name: 'ProfileComponent',
     data() {
         return {
-            username_: '',
-            name_: '',
-            email_: '',
-            lastName1_: '',
-            lastName2_: '',
-            phone_: '',
-            fakeUserService: new FakeUsersService(),
+            userAPI: new UserAPI(),
+            User:[],
         }
     },
     beforeMount(){
         const id = this.$route.params.id
-        // console.log(this.fakeUserService.getUser(id))
-        const user = this.fakeUserService.getUser(id)
-        // console.log(user)
-        this.username_=user.username
-        this.name_=user.name
-        this.email_=user.email
-        this.lastName1_=user.lastName1_
-        this.lastName2_=user.lastName2_
-        this.phone_=user.phone_
+        if (id) {
+        this.userAPI.getUserbyId(id).then((response) => {
+        this.User = response.data;
+        console.log(this.User);
+        });
+        this.username_=this.User.username;
+        } else {
+        console.error('Invalid user ID');
+        }
     },
     methods:{
         editProfile(){
