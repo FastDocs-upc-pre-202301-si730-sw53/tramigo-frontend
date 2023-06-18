@@ -7,7 +7,6 @@
       <Column field="id" header="N°."></Column>
       <Column field="name" header="Name"></Column>
       <Column field="description" header="Description"></Column>
-      <Column field="date" header="Solicitud"></Column>
       <Column field="status" header="Status"></Column>
     </DataTable>
 
@@ -61,48 +60,23 @@
 
 
 <script>
-import { FakeUsersService } from '@/services/fake-user.service'
-// import { getActivePinia } from 'pinia';
-  export default{
-    name: 'ProcedureComponent',
-    data() {
-      return {
-        Procedure:[],
-        fakeUserService: new FakeUsersService(),
-      }
-    },
-    beforeMount(){
-        this.Procedure = this.fakeUserService.getProcedure()
+import { ProcedureAPI } from "../services/procedure.service"
+export default{
+  name: 'ProcedureComponent',
+  data() {
+    return {
+      Procedure:[],
+      procedureAPI: new ProcedureAPI(),
     }
+  },
+  beforeMount(){
+    this.procedureAPI.getProcedures().then((response)=>{
+            this.Procedure = response.data;
+            console.log(this.Procedure);
+        })
   }
+}
 </script>
-
-
-<script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-const visible = ref(false);
-const selectedProcedure = ref(null);
-const api = new FakeUsersService();
-const status = ref(null);
-
-const openDialog = (event) => {
-  const id = event.data.id;
-  status.value = event.data.status;
- 
-  const user = api.getUser(id);
-  selectedProcedure.value = user;
-  visible.value = true;
-};
-
-const onPayment = () => {
-  router.push('/payment/1');
-  visible.value = false;
-};
-</script>
-
 
 <style scoped>
 .tarjet {
