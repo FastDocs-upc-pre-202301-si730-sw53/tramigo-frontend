@@ -12,7 +12,7 @@
       <div class="card flex justify-content-center">
         <Dropdown v-model="selectedPayment" :options="payments" optionLabel="name" placeholder="Select a Payment"
           class="w-full md:w-14rem" />
-        <Button label="Submit" class="button" @click="onSubmit(true)"></Button>
+        <Button label="Submit" class="button" @click="onDialog(true)"></Button>
       </div>
     </div>
   </div>
@@ -74,17 +74,13 @@
   </div>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <script>
-//import { FakeUsersService } from "../services/fake-user.service";
 import PaymentsApiService from "../services/payments-api.service";
 export default {
   name: "payment",
   data() {
     return {
-      payments_: [],
-      //fakeUserService: new FakeUsersService(),
-      //paymentService: new PaymentsApiService(),
+      payments_: []
     }
   },
   methods: {
@@ -98,7 +94,6 @@ export default {
       } else if (type === 'American Express') {
         return 'fab fa-cc-amex';
       } else {
-        // Default icon class if the type is not recognized
         return 'fa fa-credit-card';
       }
     }
@@ -106,7 +101,7 @@ export default {
 
   beforeMount() {
   const paymentService = new PaymentsApiService();
-  const id = this.$route.params.id;
+  //const id = this.$route.params.id;
 
   try {
     this.payments_.push(paymentService.getPaymentById(1));
@@ -136,43 +131,44 @@ const payments = ref([
 
 const visible = ref(false);
 const paymentTarjet = ref('');
-const date = ref();
-const value1 = ref();
-const value2 = ref();
-const value3 = ref();
-const value4 = ref();
-const value5 = ref();
-const value6 = ref();
+const date = ref('');
+const value1 = ref(null);
+const value2 = ref(null);
+const value3 = ref('');
+const value4 = ref('');
+const value5 = ref('');
+const value6 = ref('');
 const toast = useToast();
 
-const onSubmit = (show) => {
-  paymentTarjet.value = selectedPayment.value;
-  visible.value = show;
+const onDialog = (show) => {
+    paymentTarjet.value = selectedPayment.value;
+    visible.value = show;
 }
 
+
 const onPayment = () => {
-  if (!checkPayment()) {
-    toast.add({ severity: 'success', summary: 'Pago realizado', detail: 'Pago realizado con exito', life: 2000 });
-    setTimeout(() => { visible.value = false; }, 2000);
-    clearAll();
-  }
-  else {
-    toast.add({ severity: 'error', summary: 'Error', detail: 'Debe completar todos los campos', life: 2000 });
-  }
+    if (checkPayment()) {
+        toast.add({ severity: 'success', summary: 'Pago realizado', detail: 'Pago realizado con exito', life: 2000 });
+        setTimeout(() => { visible.value = false; }, 2000);
+        clearAll();
+    }
+    else {
+        toast.add({ severity: 'error', summary: 'Error', detail: 'Debe completar todos los campos', life: 2000 });
+    }
 }
 
 const clearAll = () => {
-  date.value = "";
-  value1.value = "";
-  value2.value = "";
-  value3.value = "";
-  value4.value = "";
-  value5.value = "";
-  value6.value = "";
+    date.value = "";
+    value1.value = null;
+    value2.value = null;
+    value3.value = "";
+    value4.value = "";
+    value5.value = "";
+    value6.value = "";
 }
 
 const checkPayment = () => {
-  return (date.value === "" || value1.value === "" || value2.value === "" || value3.value === "" || value4.value === "" || value5.value === "" || value6.value === "") ? true : false;
+    return (date.value !== "" && value1.value !== null && value2.value !== null && value3.value !== "" && value4.value !== "" && value5.value !== "" && value6.value !== "") ? true : false;
 }
 </script>
 

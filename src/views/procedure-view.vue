@@ -7,7 +7,7 @@
       <Column field="id" header="N°."></Column>
       <Column field="name" header="Name"></Column>
       <Column field="description" header="Description"></Column>
-      <Column field="date" header="Solicitud"></Column>
+      <Column field="createdAt" header="Solicitud"></Column>
       <Column field="status" header="Status"></Column>
     </DataTable>
 
@@ -29,7 +29,7 @@
               </div>
               <div class="p-inputgroup flex-1 my-2">
                 <span class="p-inputgroup-addon"> <i class="pi pi-id-card"></i> </span>
-                <InputText class="input" type="text" disabled :placeholder="selectedProcedure.DNI" />
+                <InputText class="input" type="text" disabled :placeholder="selectedProcedure.dni" />
               </div>
               <div class="p-inputgroup flex-1 my-2">
                 <span class="p-inputgroup-addon"> <i class="pi pi-at"></i> </span>
@@ -60,45 +60,38 @@
 </template>
 
 
-<script>
-import { FakeUsersService } from '@/services/fake-user.service'
-// import { getActivePinia } from 'pinia';
-  export default{
-    name: 'ProcedureComponent',
-    data() {
-      return {
-        Procedure:[],
-        fakeUserService: new FakeUsersService(),
-      }
-    },
-    beforeMount(){
-        this.Procedure = this.fakeUserService.getProcedure()
-    }
-  }
-</script>
-
-
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { UsersService } from '../services/users.service';
+import { ProceduresService } from '../services/procedures.service'
 
+const API_PROCEDURE = new ProceduresService();
+const API_USER = new UsersService();
+const USER_ID = parseInt(localStorage.getItem('userID'));
 const router = useRouter();
-const visible = ref(false);
-const selectedProcedure = ref(null);
-const api = new FakeUsersService();
+const user = ref([]);
+const Procedure = ref([]);
+const selectedProcedure = ref([]);
 const status = ref(null);
+const visible = ref(false);
+
+API_PROCEDURE.getAllProcedure().then((response) => {
+  Procedure.value = response.data.filter((dt) => dt.userId === USER_ID);
+});
 
 const openDialog = (event) => {
-  const id = event.data.id;
   status.value = event.data.status;
- 
-  const user = api.getUser(id);
-  selectedProcedure.value = user;
-  visible.value = true;
+  
+  API_USER.getUserById(parseInt(USER_ID)).then((response) => {
+    user.value = response.data;
+    selectedProcedure.value = user.value;
+    visible.value = true;
+  });
 };
 
 const onPayment = () => {
-  router.push('/payment/1');
+  router.push(`/payment/${USER_ID}`);
   visible.value = false;
 };
 </script>

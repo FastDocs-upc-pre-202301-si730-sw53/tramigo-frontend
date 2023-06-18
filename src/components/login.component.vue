@@ -1,10 +1,10 @@
-
 <template>
     <div class="card flex flex-column align-items-center">
         <img src="../assets/img/logo-tramigo.png" alt="logo">
         <p class="text-3xl font-medium text-900">Bienvenido a tramigo</p>
         <div class="flex flex-column md:flex-row">
             <div class="w-full md:w-5 flex flex-column align-items-left justify-content-center gap-3 py-5">
+                <Toast></Toast>
                 <div class="flex align-items-center gap-2">
                     <label for="username">Usuario:</label>
                     <InputText id="username" type="text" class="w-full" v-model="username" />
@@ -33,67 +33,46 @@
     </div>
 </template>
 
-<!-- <script>
-import { FakeUsersService } from '@/services/fake-user.service'
-
-export default {
-    data() {
-        return {
-            username: 'javier54',
-            password: 'javier',
-            fakeUserService: new FakeUsersService()
-        }
-    },
-    methods: {
-        profile: function () {
-            this.$router.push('/profile');
-        },
-        login: function () {
-            let isLoggedIn = false;
-            let numID = 0;
-            console.log(this.fakeUserService.getUsers())
-            this.fakeUserService.getUsers().map(u => {
-                if (u.username === username.value && u.password === password.value) {
-                    isLoggedIn = true
-                    numID = u.id
-                }
-            })
-
-            if (isLoggedIn) {
-                localStorage.setItem('userID', numID)
-                this.fakeUserService.saveUserId(numID)
-                this.$router.push(`/profile/${numID}`);
-            } 
-        }
-    },
-}
-</script> -->
-
 <script setup>
 import { ref } from 'vue';
 import { UsersService } from '../services/users.service';
 import { useRouter } from 'vue-router';
+import { useToast } from "primevue/usetoast";
 
 const router = useRouter();
-const API = new UsersService();
-const username = ref();
-const password = ref();
+const API_USER = new UsersService();
+const toast = useToast();
+const username = ref('');
+const password = ref('');
 let isLoggedIn = false;
 let numID = 0;
 
 const login = () => {
+    if (checkUser()) {
+        API_USER.getAllUser().then((response) => {
+            const usuario = response.data.find((user) => user.username === username.value && user.password === password.value);
+            if (usuario) {
+                toast.add({ severity: 'success', summary: 'Inicio de sesión exitoso', detail: '¡Bienvenido!', group: 'br', life: 2000 });
+                // toast.add({ severity: 'success', summary: 'Inicio de sesión exitoso', detail: '¡Bienvenido!', group: 'br', life: 2000 });
+                isLoggedIn = true;
+                numID = usuario.id;
+            }
+            if (isLoggedIn) {
+                localStorage.setItem('userID', numID);
+                router.push(`/profile/${numID}`);
+            }
+            else {
+                toast.add({ severity: 'error', summary: 'Error de inicio de sesión', detail: 'Credenciales inválidas', life: 2000 });
+            }
+        })
+    }
+    else {
+        toast.add({ severity: 'warn', summary: 'Error de inicio de sesión', detail: 'Por favor, ingresa el nombre de usuario y la contraseña', life: 2000 });
+    }
+}
 
-    API.getAllUser().then((response) => {
-        const usuario = response.data.find((user) => user.username === username.value && user.password === password.value);
-        if (usuario) {
-            isLoggedIn = true;
-            numID = usuario.id;
-        }
-        if (isLoggedIn) {
-            localStorage.setItem('userID', numID);
-            router.push(`/profile/${numID}`);
-        }
-    })
+const checkUser = () => {
+    return ((username.value !== "" || password.value !== "") ? true : false);
 }
 </script>
 

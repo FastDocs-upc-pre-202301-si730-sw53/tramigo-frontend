@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const http = axios.create({
-    baseURL:"http://localhost:3000"
+    baseURL:"https://tramigo.azurewebsites.net/api"
 })
 
 export class UsersService {
@@ -11,7 +11,7 @@ export class UsersService {
     }
 
     getUserById(id) {
-        return http.get('user/'+id)
+        return http.get('user/'+ id)
     }
 
     createUser(body) {
@@ -19,7 +19,7 @@ export class UsersService {
     }
 
     updateUser(id,body){
-        return http.patch('user/' + id,body)
+        return http.patch('user/' + id, body)
     }
 
     deleteUser(id){

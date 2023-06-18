@@ -19,7 +19,6 @@ export default {
     },
     methods: {
         registerUser() {
-            //this.service.getAll().then(response =>{ console.log(response.status)})
             this.userService.getAll().then(response => {
                 console.log(response.data)
             })

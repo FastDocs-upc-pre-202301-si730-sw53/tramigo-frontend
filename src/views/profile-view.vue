@@ -35,10 +35,10 @@
                     </span>
                 </div>
                 <div>
-                    <label for="phone">Telefono</label>
+                    <label for="dni">Dni</label>
                     <br>
                     <span class="p-float-label">
-                        <InputText id="phone" v-model="phone_" :disabled="true"/>
+                        <InputText id="dni" v-model="dni_" :disabled="true"/>
                     </span>
                 </div>
                 <div>
@@ -65,7 +65,7 @@
                 <div>
                     <div>
                         <label for="password">Contraseña Actual: </label>
-                        <InputText type="text" id="password" v-model="password" class="input"/>
+                        <InputText type="text" id="password" disabled v-model="password" class="input"/>
                     </div>
                     <div>
                         <label for="newPassword">Nueva Contraseña: </label>
@@ -86,9 +86,10 @@
     </div>
 </template>
 
-<script>
-import { FakeUsersService } from '@/services/fake-user.service'
-import { useRouter } from "vue-router";
+
+<!-- <script>
+import { UsersService } from '../services/users.service';
+
 export default {
     name: 'ProfileComponent',
     data() {
@@ -99,20 +100,18 @@ export default {
             lastName1_: '',
             lastName2_: '',
             phone_: '',
-            fakeUserService: new FakeUsersService(),
+            fakeUserService: new UsersService(),
         }
     },
     beforeMount(){
         const id = this.$route.params.id
-        // console.log(this.fakeUserService.getUser(id))
-        const user = this.fakeUserService.getUser(id)
-        // console.log(user)
+        const user = this.fakeUserService.getUserById(id)
         this.username_=user.username
         this.name_=user.name
         this.email_=user.email
-        this.lastName1_=user.lastName1_
-        this.lastName2_=user.lastName2_
-        this.phone_=user.phone_
+        this.lastName1_=user.lastName1
+        this.lastName2_=user.lastName2
+        this.phone_= 922529107
     },
     methods:{
         editProfile(){
@@ -120,37 +119,64 @@ export default {
         },
     }
 }
-</script>
+</script> -->
+
 
 <script setup>
+import { UsersService } from "../services/users.service";
 import { useToast } from "primevue/usetoast";
+import { useRouter } from "vue-router";
 import { ref } from "vue";
-import { useRoute } from 'vue-router';
-import { useRouter } from 'vue-router';
 
-const visible = ref(false);
+const API_USER = new UsersService();
+const USER_ID = localStorage.getItem('userID');
+const router = useRouter();
+const toast = useToast();
 const password = ref("");
 const newPassword = ref("");
 const confirmPassword = ref("");
+const visible = ref(false);
 
-const api = new FakeUsersService();
-const user = api.getUser(parseInt(useRoute().params.id))
-const toast = useToast();
+const username_ = ref("");
+const name_ = ref("");
+const email_ = ref("");
+const lastName1_ = ref("");
+const lastName2_ = ref("");
+const dni_ = ref("");
 
-password.value = user.password;
+API_USER.getUserById(parseInt(USER_ID)).then((response) => {
+    username_.value = response.data.username;
+    name_.value = response.data.name;
+    email_.value = response.data.email;
+    lastName1_.value = response.data.lastName1;
+    lastName2_.value = response.data.lastName2;
+    dni_.value = response.data.dni;
+});
+
+const editProfile = () => {
+    router.push(`/profile/edit/${USER_ID}`);
+}
 
 const onDialog = (show) => {
+    API_USER.getUserById(parseInt(USER_ID)).then((response) => {
+        password.value = response.data.password;
+    });
     visible.value = show;
 }
 
+const checkPassword = () => {
+    return ((newPassword.value !== "" || confirmPassword.value !== "") ? true : false) && ((newPassword.value === confirmPassword.value) ? true : false);
+}
 
 const savePassword = () => {
-    if (newPassword.value === confirmPassword.value) {
+    if (checkPassword()) {
         toast.add({ severity: 'success', summary: 'Contraseña actualizada', detail: 'Contraseña actualizada con exito', life: 2000 });
+        API_USER.updateUser(USER_ID, { password: newPassword.value });
         setTimeout(() => { visible.value = false; }, 2000);
+        clearAll();
     }
     else {
-        toast.add({ severity: 'warn', summary: 'Contraseña distinta', detail: 'Las contraseñas no coinciden', life: 3000 });
+        toast.add({ severity: 'warn', summary: 'Contraseña distinta', detail: 'Las contraseñas no coinciden', life: 2000 });
     }
 }
 
@@ -159,7 +185,13 @@ const cancelPassword = (show) => {
     confirmPassword.value = "";
     visible.value = show;
 }
+
+const clearAll = () => {
+    newPassword.value = "";
+    confirmPassword.value = "";
+}
 </script>
+
 
 <style scoped>
 .container {

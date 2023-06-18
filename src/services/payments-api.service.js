@@ -1,11 +1,11 @@
 import axios from "axios";
 
-class PaymentsApiService{
+class PaymentsApiService {
     getPayments(){
-        return axios.get("https://localhost:7032/api/Payment");
+        return axios.get("https://tramigo.azurewebsites.net/api/payment");
     }
     getPaymentById(id){
-        return axios.get("https://localhost:7032/api/Payment/"+id);
+        return axios.get("https://tramigo.azurewebsites.net/api/payment/"+id);
     }
 }
 
