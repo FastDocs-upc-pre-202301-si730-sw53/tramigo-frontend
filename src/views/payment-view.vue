@@ -104,8 +104,7 @@ export default {
   //const id = this.$route.params.id;
 
   try {
-    this.payments_.push(paymentService.getPaymentById(1));
-    this.payments_.push(paymentService.getPaymentById(2));
+    this.payments_ = paymentService.getPayments();
   } catch (error) {
     console.error("Error loading payments:", error);
   }
