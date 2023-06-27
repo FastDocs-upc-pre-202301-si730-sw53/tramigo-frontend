@@ -12,6 +12,15 @@ export default {
             name_: '',
             email: '',
             dni: '',
+            lastName1: '',
+            lastName2: '',
+            phone: '',
+            verified: true,
+            paymentMethod: '',
+            company: '',
+            isActive: true,
+            procedures: [],
+            payments: [],
             user:undefined,
             userService: new UsersService(),
             fakeUserService: new FakeUsersService()
@@ -19,20 +28,24 @@ export default {
     },
     methods: {
         registerUser() {
-            this.userService.getAll().then(response => {
-                console.log(response.data)
-            })
-            console.log(name_.value)
             this.user = {
-                id: 4,
                 name: name_.value,
                 DNI: dni.value,
                 username: username.value,
                 email: email.value,
                 password: password.value,
+                lastName1: this.lastName1,
+                lastName2: this.lastName2,
+                phone: this.phone,
+                verified: this.verified,
+                paymentMethod: this.paymentMethod,
+                company: this.company,
+                isActive: this.isActive,
+                procedures: this.procedures,
+                payments: this.payments
             }
-            this.fakeUserService.createUser(this.user)
-            this.$router.push('/login')
+            this.userService.createUser(this.user);
+            this.$router.push('/login');
         },
         goLogin(){
             this.$router.push('/login')
@@ -74,7 +87,7 @@ export default {
         <div class="flex flex-wrap align-items-center mb-2 gap-2">
             <label for="dni" class="p-sr-only">DNI:</label>
             <InputText id="dni" placeholder="DNI" class="p-invalid" v-model.trim="dni" />
-            <InlineMessage v-if="!dni">El DNI es obligaotrio!</InlineMessage>
+            <InlineMessage v-if="!dni">El DNI es obligatorio!</InlineMessage>
         </div>
 
         <Button class="mt-4 mb-3" label="Submit" @click="registerUser" />

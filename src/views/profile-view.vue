@@ -154,7 +154,7 @@ API_USER.getUserById(parseInt(USER_ID)).then((response) => {
 });
 
 const editProfile = () => {
-    router.push(`/profile/edit/${USER_ID}`);
+    router.push(`/profile/edit`);
 }
 
 const onDialog = (show) => {
