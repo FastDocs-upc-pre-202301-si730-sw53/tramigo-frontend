@@ -7,23 +7,23 @@ const http = axios.create({
 export class UsersService {
 
     getAllUser() {
-        return http.get('/user')
+        return http.get('/User')
     }
 
     getUserById(id) {
-        return http.get('user/'+ id)
+        return http.get('User/'+ id)
     }
 
     createUser(body) {
-        return http.post('user',body)
+        return http.post('User',body)
     }
 
     updateUser(id,body){
-        return http.patch('user/' + id, body)
+        return http.patch('User/' + id, body)
     }
 
     deleteUser(id){
-        return http.delete('user/' + id)
+        return http.delete('User/' + id)
     }
 }
 

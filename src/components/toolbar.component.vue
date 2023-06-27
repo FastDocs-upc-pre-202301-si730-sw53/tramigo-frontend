@@ -33,12 +33,12 @@ const items = ref([
             {
                 label: t('menu.profile'),
                 icon: 'pi pi-fw pi-user',
-                to: `/profile/${userID}`
+                to: `/profile`
             },
             {
                 label: t('menu.profileEdit'),
                 icon: 'pi pi-fw pi-user',
-                to: `/profile/edit/${userID}`
+                to: `/profile/edit`
             }
         ]
     },
@@ -49,7 +49,7 @@ const items = ref([
             {
                 label: t('menu.procedureW'),
                 icon: 'pi pi-fw pi-briefcase',
-                to: `/procedure/${userID}`
+                to: `/procedure`
             },
             {
                 label: 'Editar Tramites',
@@ -58,19 +58,14 @@ const items = ref([
                     {
                         label: 'Crear Nuevo Tramite',
                         icon: 'pi pi-fw pi-plus',
-                        to: '/procedure/new'
-                    },
-                    {
-                        label: 'Eliminar Tramites',
-                        icon: 'pi pi-fw pi-minus',
-                        to: '/procedure/delete'
+                        to: '/procedure/create'
                     }
                 ]
             },
             {
                 label: 'Tramites Archivados',
                 icon: 'pi pi-fw pi-folder',
-                to: `/procedure/filed/${userID}`,  
+                to: `/procedure/filed`,  
             }
         ]
     },

@@ -2,15 +2,21 @@
     <Card>
       <template #title> Mis Tramites</template>
     </Card>
-    <DataTable :value="Procedure" tableStyle="min-width: 50rem" @row-select="openDialog">
-      <Column selectionMode="single" header="Detalle"></Column>
-      <Column field="id" header="N°."></Column>
-      <Column field="name" header="Name"></Column>
-      <Column field="description" header="Description"></Column>
-      <Column field="createdAt" header="Solicitud"></Column>
-      <Column field="status" header="Status"></Column>
+    <DataTable :value="Procedure" paginator :rows="3" :rowsPerPageOptions="[3, 4, 5]" tableStyle="min-width: 50rem" @row-select="openDialog">
+      <Column selectionMode="single" header="Detalle" sortable style="width: 25%"></Column>
+      <Column field="id" header="N°." sortable style="width: 25%"></Column>
+      <Column field="name" header="Name" sortable style="width: 25%"></Column>
+      <Column field="description" header="Description" sortable style="width: 25%"></Column>
+      <Column field="createdAt" header="Solicitud" sortable style="width: 25%"></Column>
+      <Column field="status" header="Status" sortable style="width: 25%"></Column>
     </DataTable>
 
+    <div class="Eliminar">
+      <h2>Eliminar Tramite por N°</h2> <br>
+      <InputNumber v-model="idValue" inputId="integeronly" />
+      <Button icon="pi pi-check" aria-label="Submit" @click="eliminarTramite()"/>
+    </div>
+    
     <div class="card flex justify-content-center">
         <Dialog v-model:visible="visible" modal header="Detalle Tramite" :style="{ width: '45vw' }" :breakpoints="{ '960px': '65vw', '641px': '95vw' }">
           <div class="card flex align-items-center justify-content-center">
@@ -66,6 +72,7 @@ import { useRouter } from 'vue-router';
 import { UsersService } from '../services/users.service';
 import { ProceduresService } from '../services/procedures.service'
 
+const idValue = ref(null);
 const API_PROCEDURE = new ProceduresService();
 const API_USER = new UsersService();
 const USER_ID = parseInt(localStorage.getItem('userID'));
@@ -76,8 +83,14 @@ const selectedProcedure = ref([]);
 const status = ref(null);
 const visible = ref(false);
 
+const eliminarTramite = () =>{
+  API_PROCEDURE.deleteProcedure(parseInt(idValue.value)).then((response) => {
+    window.location.reload();
+  });
+}
+
 API_PROCEDURE.getAllProcedure().then((response) => {
-  Procedure.value = response.data.filter((dt) => dt.userId === USER_ID);
+  Procedure.value = response.data.filter((dt) => dt.userId === USER_ID && dt.status === 'Pendiente');
 });
 
 const openDialog = (event) => {
@@ -100,5 +113,10 @@ const onPayment = () => {
 <style scoped>
 .tarjet {
   text-align: center;
+}
+.Eliminar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

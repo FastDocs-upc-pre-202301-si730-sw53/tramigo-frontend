@@ -7,9 +7,12 @@ const http = axios.create({
 export class ProceduresService {
 
     getAllProcedure() {
-        return http.get('/procedure')
+        return http.get('/Procedure')
     }
     getProcedureById(id) {
-        return http.get('/procedure/'+id);
+        return http.get('/Procedure/'+id);
+    }
+    deleteProcedure(id) {
+        return http.delete('/Procedure/'+id);
     }
 }

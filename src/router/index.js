@@ -12,7 +12,7 @@ const router = createRouter({
       component: () => import('../views/home-view.vue') //lazy loading
     },
     {
-      path: '/profile/:id',
+      path: '/profile',
       name: 'profile',
       component: () => import('../views/profile-view.vue') //lazy loading
     },
@@ -22,7 +22,7 @@ const router = createRouter({
       component: () => import('../components/login.component.vue') //lazy loading
     },
     {
-      path: '/procedure/:id',
+      path: '/procedure',
       name: 'procedure',
       component: () => import('../views/procedure-view.vue') //lazy loading
     },
@@ -42,14 +42,19 @@ const router = createRouter({
       component: () => import ('../views/payment-view.vue') //lazy loading
     },
     {
-      path: '/profile/edit/:id',
+      path: '/profile/edit',
       name: 'editProfile',
       component: () => import ('../views/edit-profile-view.vue') //lazy loading
     },
     {
-      path: '/procedure/filed/:id',
+      path: '/procedure/filed',
       name: 'storeProcedure',
       component: () => import ('../views/filed-procedure-view.vue') //lazy loading
+    },
+    {
+      path: '/procedure/create',
+      name: 'createProcedure',
+      component: () => import ('../views/create-procedure-view.vue') //lazy loading
     }
   ]
 })

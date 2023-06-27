@@ -1,14 +1,5 @@
 <template>
-    <Card>
-      <template #title> Tramites Archivados</template>
-    </Card>
-    <DataTable :value="Procedure" paginator :rows="3" :rowsPerPageOptions="[3, 4, 5]" tableStyle="min-width: 50rem" @row-select="openDialog">
-      <Column field="id" header="N." sortable style="width: 25%"></Column>
-      <Column field="name" header="Name" sortable style="width: 25%"></Column>
-      <Column field="description" header="Description" sortable style="width: 25%"></Column>
-      <Column field="createdAt" header="Solicitud" sortable style="width: 25%"></Column>
-      <Column field="status" header="Status" sortable style="width: 25%"></Column>
-    </DataTable>
+    <h1>En Desarrollo</h1>
 </template>
 
 <script setup>

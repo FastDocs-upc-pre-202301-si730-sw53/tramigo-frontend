@@ -59,7 +59,7 @@ const login = () => {
             if (isLoggedIn) {
                 toast.add({ severity: 'success', summary: 'Inicio de sesión exitoso', detail: '¡Bienvenido!', group: 'br', life: 2000 });
                 localStorage.setItem('userID', numID);
-                setTimeout(() => { router.push(`/profile/${numID}`); }, 2000);
+                setTimeout(() => { router.push(`/profile`); }, 2000);
             }
             else {
                 toast.add({ severity: 'error', summary: 'Error de inicio de sesión', detail: 'Credenciales inválidas', life: 2000 });
