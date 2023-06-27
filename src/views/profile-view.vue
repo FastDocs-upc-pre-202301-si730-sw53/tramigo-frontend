@@ -53,7 +53,7 @@
                 <div class="container_footer">
                     <Button label="Editar" icon="pi pi-user-edit" severity="success" @click="editProfile()"/>
                     <Button label="Cambiar Contraseña" icon="pi pi-lock" severity="success"  @click="onDialog(true)"/>
-                    <Button label="Borrar Cuenta" icon="pi pi-delete-left" severity="success" />
+                    <Button label="Borrar Cuenta" icon="pi pi-delete-left" severity="success" @click="eraseProfile()" />
                 </div>
             </template>
         </Card>
@@ -162,6 +162,12 @@ const onDialog = (show) => {
         password.value = response.data.password;
     });
     visible.value = show;
+}
+
+const eraseProfile = () => {
+    API_USER.deleteUser(USER_ID);
+    toast.add({ severity: 'success', summary: 'Cuenta eliminada', detail: 'Cuenta eliminada con exito', life: 2000 });
+    setTimeout(() => { router.push('/login'); }, 2000);
 }
 
 const checkPassword = () => {
