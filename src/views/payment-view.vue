@@ -118,7 +118,10 @@ export default {
 <script setup>
 import { ref } from "vue";
 import { useToast } from "primevue/usetoast";
+// import { ProceduresService } from '../services/procedures.service';
 
+// const API_PROCEDURE = new ProceduresService();
+// const USER_ID = parseInt(localStorage.getItem('userID'));
 const selectedPayment = ref();
 
 const payments = ref([

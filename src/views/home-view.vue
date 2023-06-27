@@ -47,6 +47,7 @@ export default {
       <Button text class="mat-button"><a href="#feature">Beneficios</a></Button>
       <Button text class="mat-button"><a href="#help">Ayuda</a></Button> 
       <Button text class="bt mat-button"><a href="#footer">Contacto</a></Button>
+      <button text class="bt_login"><a href="/login">Registrate Gratuitamente</a></button>
 </div>
 
 
@@ -938,6 +939,14 @@ a {
   text-decoration: none;
   font-weight: bold;
   color: var(--green-1);
+}
+
+.bt_login {
+    background-color: #000;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
 }
 
 

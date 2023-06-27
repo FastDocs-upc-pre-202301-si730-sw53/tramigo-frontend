@@ -12,8 +12,8 @@
     </DataTable>
 
     <div class="Eliminar">
-      <h2>Eliminar Tramite por N°</h2> <br>
-      <InputNumber v-model="idValue" inputId="integeronly" />
+      <h2>Eliminar Tramite por N°</h2>&nbsp;
+      <InputNumber v-model="idValue" inputId="integeronly" />&nbsp;
       <Button icon="pi pi-check" aria-label="Submit" @click="eliminarTramite()"/>
     </div>
     

@@ -5,15 +5,15 @@
     <div class="format">
         <div>
             <label for="username">Nombre de Usuario</label>
-            <InputText id="username" v-model="username" aria-describedby="username-help" />
+            <InputText id="username" v-model="username" aria-describedby="username-help" class="input_name"/>
         </div>
         <div>
             <label for="email">Correo</label>
-            <InputText id="email" v-model="email" aria-describedby="email-help" />
+            <InputText id="email" v-model="email" aria-describedby="email-help" class="input_email"/>
         </div>
         <div>
             <label for="phone">Telefono</label>
-            <InputText id="phone" v-model="phone" aria-describedby="phone-help" />
+            <InputText id="phone" v-model="phone" aria-describedby="phone-help" class="input_phone"/>
         </div>
         <Button type="submit" label="Submit" @click="updateUser" />
     </div>
@@ -63,5 +63,40 @@ export default {
     margin-top: 2rem;
     margin-bottom: 2rem;
     gap: 1rem;
+}
+
+label {
+  margin-right: 10px;
+}
+
+.input_name {
+  width: 250px;
+}
+
+.input_email {
+  width: 339px;
+}
+
+.input_phone {
+  width: 325px;
+}
+
+Button {
+  margin-top: 25px;
+  width: 150px;
+}
+
+@media only screen and (max-width: 550px) {
+  .input_name {
+    width: 325px;
+  }
+
+  .input_email {
+    width: 325px;
+  }
+
+  .input_phone {
+    width: 325px;
+  }
 }
 </style>

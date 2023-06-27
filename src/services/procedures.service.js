@@ -12,6 +12,9 @@ export class ProceduresService {
     getProcedureById(id) {
         return http.get('/Procedure/'+id);
     }
+    updateProcedureStatus(id, procedure) {
+        return http.put('/Procedure/'+id, procedure);
+    }
     deleteProcedure(id) {
         return http.delete('/Procedure/'+id);
     }
