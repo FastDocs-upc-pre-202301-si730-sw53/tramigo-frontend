@@ -1,12 +1,16 @@
 import axios from "axios";
 
-class PaymentsApiService {
+const http = axios.create({
+    baseURL:"https://tramigo.azurewebsites.net/api"
+})
+
+export class PaymentsApiService {
     getPayments(){
-        return axios.get("https://tramigo.azurewebsites.net/api/Payment");
+        return http.get("/Payment");
     }
     getPaymentById(id){
-        return axios.get("https://tramigo.azurewebsites.net/api/Payment/"+id);
+        return http.get("/Payment/"+id);
     }
 }
 
-export default PaymentsApiService;
+// export default PaymentsApiService;

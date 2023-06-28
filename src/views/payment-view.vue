@@ -1,18 +1,18 @@
 <template>
   <br>
   <div class="medios-de-pago">
-    <div v-if= "!payments_.length > 0" v-for="payment in payments_" :key="payment.id" class="medio-de-pago">
-      <i :class="getCardIcon(payment.type)"></i>
-      <span>{{ payment.cardNumber.slice(-4) }}</span>
+    <div v-for="payment in payments_" :key="payment.id" class="medio-de-pago">
+      <i :class=getCardIcon(payment.type)></i>
+      <span>{{ payment.cardNumber }}</span>
       <span>{{ payment.type }}</span>
     </div>
-  </div>
-  <div class="medios-de-pago">
-    <div class="container-select-button">
-      <div class="card flex justify-content-center">
-        <Dropdown v-model="selectedPayment" :options="payments" optionLabel="name" placeholder="Select a Payment"
-          class="w-full md:w-14rem" />
-        <Button label="Submit" class="button" @click="onDialog(true)"></Button>
+    <div class="medios-de-pago">
+      <div class="container-select-button">
+        <div class="card flex justify-content-center">
+          <Dropdown v-model="selectedPayment" :options="payments" optionLabel="name" placeholder="Select a Payment"
+            class="w-full md:w-14rem" />
+          <Button label="Submit" class="button" @click="onDialog(true)"></Button>
+        </div>
       </div>
     </div>
   </div>
@@ -75,12 +75,11 @@
 </template>
 
 <script>
-import PaymentsApiService from "../services/payments-api.service";
 export default {
   name: "payment",
   data() {
     return {
-      payments_: []
+      // payments_: []
     }
   },
   methods: {
@@ -99,16 +98,15 @@ export default {
     }
   },
 
-  beforeMount() {
-  const paymentService = new PaymentsApiService();
-  //const id = this.$route.params.id;
+//   beforeMount() {
+//   const paymentService = new PaymentsApiService();
 
-  try {
-    this.payments_ = paymentService.getPayments();
-  } catch (error) {
-    console.error("Error loading payments:", error);
-  }
-},
+//   try {
+//     this.payments_ = paymentService.getPayments();
+//   } catch (error) {
+//     console.error("Error loading payments:", error);
+//   }
+// },
 
 
 };
@@ -119,6 +117,7 @@ export default {
 import { ref } from "vue";
 import { useToast } from "primevue/usetoast";
 // import { ProceduresService } from '../services/procedures.service';
+import { PaymentsApiService } from "../services/payments-api.service";
 
 // const API_PROCEDURE = new ProceduresService();
 // const USER_ID = parseInt(localStorage.getItem('userID'));
@@ -130,6 +129,15 @@ const payments = ref([
   { name: 'PayPal', code: 'LDN', amount: '$/ 550.00' },
   { name: 'American Express', code: 'IST', amount: '$/ 550.00' }
 ]);
+
+const payments_ = ref([]);
+const API_PAYMENT = new PaymentsApiService();
+
+API_PAYMENT.getPayments().then((response) => {
+  payments_.value = response.data;
+  console.log(payments_.value);
+});
+
 
 const visible = ref(false);
 const paymentTarjet = ref('');
@@ -146,7 +154,6 @@ const onDialog = (show) => {
     paymentTarjet.value = selectedPayment.value;
     visible.value = show;
 }
-
 
 const onPayment = () => {
     if (checkPayment()) {
