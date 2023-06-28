@@ -86,42 +86,6 @@
     </div>
 </template>
 
-
-<!-- <script>
-import { UsersService } from '../services/users.service';
-
-export default {
-    name: 'ProfileComponent',
-    data() {
-        return {
-            username_: '',
-            name_: '',
-            email_: '',
-            lastName1_: '',
-            lastName2_: '',
-            phone_: '',
-            fakeUserService: new UsersService(),
-        }
-    },
-    beforeMount(){
-        const id = this.$route.params.id
-        const user = this.fakeUserService.getUserById(id)
-        this.username_=user.username
-        this.name_=user.name
-        this.email_=user.email
-        this.lastName1_=user.lastName1
-        this.lastName2_=user.lastName2
-        this.phone_= 
-    },
-    methods:{
-        editProfile(){
-            this.$router.push('/profile/edit/'+this.$route.params.id)
-        },
-    }
-}
-</script> -->
-
-
 <script setup>
 import { UsersService } from "../services/users.service";
 import { useToast } from "primevue/usetoast";
